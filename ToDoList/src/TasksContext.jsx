@@ -1,12 +1,14 @@
 import { createContext, useContext, useReducer } from "react";
 
+// 현재 tasks 리스트 제공
 const TasksContext = createContext(null);
-
+// 컴포넌트에서 action을 전달할 수 있는 dispatch 함수 제공
 const TasksDispatchContext = createContext(null);
 
 export function TasksProvider({ children }) {
   const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
 
+  // 모든 children 컴포넌트에 대해 Context로 state와 dispatch 함수 제공, Provider로 감싼다.
   return (
     <TasksContext.Provider value={tasks}>
       <TasksDispatchContext.Provider value={dispatch}>

@@ -1,15 +1,23 @@
 import { useState } from "react";
 import { useTasksDispatch } from "./TasksContext.jsx";
+import { useDispatch } from "react-redux";
+import { added } from "./store";
 
 /**
  * Task를 추가하는 역할 담당 함수
  * onAddTask: 부모로부터 전달된 콜백 함수
  * @param {function} onAddTask
  */
-export default function AddTask({ onAddTask }) {
+export default function AddTask(
+  {
+    /*onAddTask*/
+  }
+) {
   // add 버튼을 클릭했을 때 빈 문자열로 reset 하기 위해 text 상태 저장
   const [text, setText] = useState("");
-  const dispatch = useTasksDispatch();
+  //const dispatch = useTasksDispatch();
+  const dispatch = useDispatch();
+
   return (
     <>
       <input
@@ -24,11 +32,12 @@ export default function AddTask({ onAddTask }) {
             // onAddTask(text);
             // setText("");
             setText("");
-            dispatch({
-              type: "added",
-              id: nextId++,
-              text: text,
-            });
+            // dispatch({
+            //   type: "added",
+            //   id: nextId++,
+            //   text: text,
+            // });
+            dispatch(added({ text }));
           }
         }}
       >
@@ -38,4 +47,4 @@ export default function AddTask({ onAddTask }) {
   );
 }
 
-let nextId = 3;
+// let nextId = 3;

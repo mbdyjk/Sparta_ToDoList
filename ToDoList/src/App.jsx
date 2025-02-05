@@ -3,6 +3,10 @@ import AddTask from "./AddTask.jsx";
 import TaskList from "./TaskList.jsx";
 // import tasksReducer from "./tasksReducer.js";
 import { TasksProvider } from "./TasksContext.jsx";
+import { Provider } from "react-redux";
+import { store } from "./store";
+
+// 1번 방식 - Reducer 사용
 
 // export default function App() {
 //   // Reducer를 사용하면 몇 가지 장점이 있다.
@@ -54,12 +58,28 @@ import { TasksProvider } from "./TasksContext.jsx";
 //   { id: 1, text: "Watch a puppet show", done: false },
 //   { id: 2, text: "Lennon Wall pic", done: false },
 // ];
-export default function TaskApp() {
+
+// 2번 방식 - Reducer + Context 사용
+
+// 위의 방식은 좋지만, props drilling이 발생한다는 점이 아쉽다.
+// Context API를 사용하여 모든 컴포넌트가 Context에 있는 state와 dispatch/set 함수를 읽을 수 있게 한다.
+// export default function TaskApp() {
+//   return (
+//     <TasksProvider>
+//       <h1>Day off in Kyoto</h1>
+//       <AddTask />
+//       <TaskList />
+//     </TasksProvider>
+//   );
+// }
+
+// 3번 방식 - redux 사용
+
+export default function App() {
   return (
-    <TasksProvider>
-      <h1>Day off in Kyoto</h1>
+    <Provider store={store}>
       <AddTask />
       <TaskList />
-    </TasksProvider>
+    </Provider>
   );
 }
