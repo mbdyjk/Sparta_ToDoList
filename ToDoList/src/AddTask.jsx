@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTasksDispatch } from "./TasksContext.jsx";
 
 /**
  * Task를 추가하는 역할 담당 함수
@@ -8,6 +9,7 @@ import { useState } from "react";
 export default function AddTask({ onAddTask }) {
   // add 버튼을 클릭했을 때 빈 문자열로 reset 하기 위해 text 상태 저장
   const [text, setText] = useState("");
+  const dispatch = useTasksDispatch();
   return (
     <>
       <input
@@ -19,8 +21,14 @@ export default function AddTask({ onAddTask }) {
         onClick={() => {
           // 빈 문자열일 경우 task를 추가하지 않는다.
           if (text.trim()) {
-            onAddTask(text);
+            // onAddTask(text);
+            // setText("");
             setText("");
+            dispatch({
+              type: "added",
+              id: nextId++,
+              text: text,
+            });
           }
         }}
       >
@@ -29,3 +37,5 @@ export default function AddTask({ onAddTask }) {
     </>
   );
 }
+
+let nextId = 3;
